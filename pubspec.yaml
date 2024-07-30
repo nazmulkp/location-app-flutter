@@ -1,0 +1,67 @@
+name: location_app
+description: Location Data Flutter app
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  bloc: ^8.1.2
+  dio: ^5.4.1
+  equatable: ^2.0.3
+  retrofit: ^4.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.4
+  flutter_localizations:
+    sdk: flutter
+  geolocator: ^9.0.0
+  permission_handler: ^10.0.0
+  hive: ^2.0.0
+  hive_flutter: ^1.0.0
+  path_provider: ^2.0.0
+  freezed: ^2.4.7
+  freezed_annotation: ^2.4.1
+  intl: ^0.19.0
+  auto_route: ^7.8.4
+  get_it: ^7.6.7
+  injectable: ^2.3.2
+  provider: ^6.1.1
+  theme_tailor_annotation: ^3.0.1
+  theme_tailor: ^3.0.1
+  flutter_svg: ^2.0.10+1
+  auto_size_text:
+  
+  
+
+dev_dependencies:
+  bloc_test: ^9.1.6
+  build_runner: ^2.4.8
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^2.0.1
+  injectable_generator: ^2.4.1  
+  json_serializable: ^6.7.1
+  mocktail: ^1.0.3
+  monstarlab_lints: ^1.0.3
+  very_good_analysis: ^5.1.0
+  auto_route_generator: ^7.3.2
+  flutter_gen_runner: ^5.4.0
+  retrofit_generator: ^8.0.6
+
+flutter:
+  uses-material-design: true
+  generate: true
+   # To add assets to your application, add an assets section, like this:
+  assets:
+      - assets/icons/
+      - assets/images/
+
+flutter_gen:
+  # Optional
+  integrations:
+    flutter_svg: true
+    # flare_flutter: true
+    # rive: true
+    # lottie: true
