@@ -23,11 +23,13 @@ class LocationRepositoryImpl implements LocationRepository {
   List<Location> getLocations() {
     final locations = locationBox.values.cast<LocationModel>();
     return locations
-        .map((locationModel) => Location(
-              latitude: locationModel.latitude,
-              longitude: locationModel.longitude,
-              timestamp: locationModel.timestamp,
-            ))
+        .map(
+          (locationModel) => Location(
+            latitude: locationModel.latitude,
+            longitude: locationModel.longitude,
+            timestamp: locationModel.timestamp,
+          ),
+        )
         .toList();
   }
 }

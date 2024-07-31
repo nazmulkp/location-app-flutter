@@ -19,9 +19,8 @@ class StartLocationTracking extends LocationEvent {}
 class StopLocationTracking extends LocationEvent {}
 
 class NewLocationReceived extends LocationEvent {
-  final Location location;
-
   NewLocationReceived(this.location);
+  final Location location;
 
   @override
   List<Object> get props => [location];
@@ -38,18 +37,16 @@ class LocationInitial extends LocationState {}
 class LocationLoading extends LocationState {}
 
 class LocationLoaded extends LocationState {
-  final List<Location> locations;
-
   LocationLoaded(this.locations);
+  final List<Location> locations;
 
   @override
   List<Object> get props => [locations];
 }
 
 class LocationError extends LocationState {
-  final String message;
-
   LocationError(this.message);
+  final String message;
 
   @override
   List<Object> get props => [message];
@@ -57,21 +54,22 @@ class LocationError extends LocationState {
 
 // BLoC
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  final getIt = GetIt.instance;
-  StreamSubscription<Position>? positionStream;
-  final LocationSettings locationSettings = const LocationSettings(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 100,
-  );
-
   LocationBloc() : super(LocationInitial()) {
     on<StartLocationTracking>(_onStartLocationTracking);
     on<StopLocationTracking>(_onStopLocationTracking);
     on<NewLocationReceived>(_onNewLocationReceived);
   }
+  final getIt = GetIt.instance;
+  StreamSubscription<Position>? positionStream;
+  final LocationSettings locationSettings = const LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 1,
+  );
 
   Future<void> _onStartLocationTracking(
-      StartLocationTracking event, Emitter<LocationState> emit) async {
+    StartLocationTracking event,
+    Emitter<LocationState> emit,
+  ) async {
     emit(LocationLoading());
     try {
       await _determinePosition();
@@ -87,16 +85,20 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   Future<void> _onStopLocationTracking(
-      StopLocationTracking event, Emitter<LocationState> emit) async {
+    StopLocationTracking event,
+    Emitter<LocationState> emit,
+  ) async {
     await positionStream?.cancel();
     emit(LocationInitial());
   }
 
   Future<void> _onNewLocationReceived(
-      NewLocationReceived event, Emitter<LocationState> emit) async {
+    NewLocationReceived event,
+    Emitter<LocationState> emit,
+  ) async {
     final saveLocation = getIt.get<LocationRepository>().saveLocation;
     await saveLocation(event.location);
-    final locations = await getIt.get<GetLocations>().call();
+    final locations = getIt.get<GetLocations>().call();
     emit(LocationLoaded(locations));
   }
 
@@ -119,7 +121,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     if (permission == LocationPermission.deniedForever) {
       return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.',
+        'Location permissions denied, We cannot request permissions.',
       );
     }
 

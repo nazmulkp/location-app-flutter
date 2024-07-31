@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:auto_route/auto_route.dart';
 import 'package:location_app/presentation/routes/AppRouter.gr.dart';
 

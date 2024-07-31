@@ -5,14 +5,14 @@ import 'package:location_app/injection/injector.dart';
 import 'package:location_app/presentation/routes/AppRouter.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Assuming `injector` is previously defined and set up for dependency injection.
+    // Assuming `injector` is previously defined.
     final appRouter = injector<AppRouter>();
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      // Customize the status bar here. For example, using dark text for light themes.
+      // Customize the status bar here..
       value: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.transparent, // You can set this to any color.
         statusBarIconBrightness: Brightness.dark, // Status bar icon color

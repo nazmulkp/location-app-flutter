@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:location_app/data/services/background_service.dart';
 import 'package:location_app/injection/dependency_manager.dart';
-import 'package:location_app/presentation/services/background_service.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -27,12 +27,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  //await initializeService();
-
   Bloc.observer = const AppBlocObserver();
 
   // Add cross-flavor configuration here
   await DependencyManager.inject();
 
+  await initializeService();
   runApp(await builder());
 }

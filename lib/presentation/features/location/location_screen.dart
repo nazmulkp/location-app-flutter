@@ -12,37 +12,26 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (_) => LocationBloc(),
-        child: LocationBody(),
+        child: const LocationBody(),
       ),
     );
   }
 }
 
 class LocationBody extends StatefulWidget {
-  LocationBody({super.key});
+  const LocationBody({super.key});
 
   @override
   State<LocationBody> createState() => _LocationBodyState();
 }
 
-class _LocationBodyState extends State<LocationBody>
-    with WidgetsBindingObserver {
+class _LocationBodyState extends State<LocationBody> {
   final ScrollController _scrollController = ScrollController();
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    print("didChangeAppLifecycleState: $state");
-    if (state == AppLifecycleState.paused) {
-      print("app in on background");
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    print("initState..");
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
