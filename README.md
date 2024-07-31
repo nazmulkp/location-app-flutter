@@ -10,7 +10,6 @@ https://drive.google.com/file/d/16CytPNrauuSfUK4F6kYzaHSpvp-nE0gQ/view?usp=shari
 
 
 ---
-flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
 
 ## Getting Started 🚀
 
