@@ -18,10 +18,32 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class LocationBody extends StatelessWidget {
+class LocationBody extends StatefulWidget {
   LocationBody({super.key});
 
+  @override
+  State<LocationBody> createState() => _LocationBodyState();
+}
+
+class _LocationBodyState extends State<LocationBody>
+    with WidgetsBindingObserver {
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("didChangeAppLifecycleState: $state");
+    if (state == AppLifecycleState.paused) {
+      print("app in on background");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    print("initState..");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +55,10 @@ class LocationBody extends StatelessWidget {
         listener: (context, state) {
           if (state is LocationLoaded) {
             _scrollToBottom();
+          } else if (state is LocationError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
           }
         },
         builder: (context, state) {
@@ -56,6 +82,10 @@ class LocationBody extends StatelessWidget {
                   );
                 },
               ),
+            );
+          } else if (state is LocationError) {
+            return Center(
+              child: Text('Error: ${state.message}'),
             );
           }
           return Container();
