@@ -50,7 +50,7 @@ dev_dependencies:
   mocktail: ^1.0.3
   monstarlab_lints: ^1.0.3
   retrofit_generator: ^8.0.6
-  very_good_analysis: ^5.1.0
+  very_good_analysis: ^6.0.0
 
 
 flutter:
